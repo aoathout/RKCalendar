@@ -18,7 +18,10 @@ public class RKManager : ObservableObject {
            didSet { objectWillChange.send() }
        }
     @Published public var selectedDate: Date! = nil {
-        didSet { objectWillChange.send() }
+        didSet {
+            print("SelectedDate: \(selecteDate)")
+            objectWillChange.send()
+        }
     }
     @Published public var startDate: Date! = nil
     @Published public var endDate: Date! = nil
