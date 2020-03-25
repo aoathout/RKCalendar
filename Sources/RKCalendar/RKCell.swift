@@ -26,7 +26,7 @@ struct RKCell: View {
                 .fixedSize(horizontal: false, vertical: true)
             
             Circle()
-                .fill(rkDate.hasEvent ? Color.gray.opacity(0.5) : Color.clear)
+                .fill(rkDate.hasEvent ? rkDate.getEventFillColor() : Color.clear)
                 .frame(width: 10)
                 .padding(.top, 2)
                 .fixedSize(horizontal: false, vertical: true)

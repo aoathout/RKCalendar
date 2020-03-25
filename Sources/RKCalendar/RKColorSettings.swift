@@ -29,5 +29,7 @@ public class RKColorSettings : ObservableObject {
     // headers background colors
     @Published public var weekdayHeaderBackColor: Color = Color.clear
     @Published public var monthBackColor: Color = Color.clear
+    // event fill colors
+    @Published public var eventFillColor: Color = Color.gray.opacity(0.4)
 
 }

@@ -71,6 +71,16 @@ struct RKDate {
         return backgroundColor
     }
     
+    func getEventFillColor() -> Color {
+        var fillColor = rkManager.colors.eventFillColor
+        
+        if isDisabled {
+            fillColor = Color.clear
+        }
+        
+        return fillColor
+    }
+    
     func getFontWeight() -> Font.Weight {
         var fontWeight = Font.Weight.medium
         if isDisabled {
@@ -84,7 +94,7 @@ struct RKDate {
         }
         return fontWeight
     }
-    
+        
     // MARK: - Date Formats
     
     func formatDate(date: Date, calendar: Calendar) -> String {
