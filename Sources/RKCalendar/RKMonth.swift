@@ -41,13 +41,15 @@ public struct RKMonth: View {
                             HStack() {
                                 Spacer()
                                 if self.isThisMonth(date: column) {
-                                    RKCell(rkDate: RKDate(
+                                    RKCell(rkDate:
+                                        RKDate(
                                         date: column,
                                         rkManager: self.rkManager,
                                         isDisabled: !self.isEnabled(date: column),
                                         isToday: self.isToday(date: column),
                                         isSelected: self.isSpecialDate(date: column),
-                                        isBetweenStartAndEnd: self.isBetweenStartAndEnd(date: column)),
+                                        isBetweenStartAndEnd: self.isBetweenStartAndEnd(date: column),
+                                        hasEvent: self.isEventDate(date: column)),
                                         cellWidth: self.cellWidth)
                                         .onTapGesture { self.dateTapped(date: column) }
                                 } else {
@@ -241,6 +243,10 @@ public struct RKMonth: View {
             return false
         }
         return true
+    }
+    
+    func isEventDate(date: Date) -> Bool {
+        return self.rkManager.eventDatesContains(date: date)
     }
 }
 

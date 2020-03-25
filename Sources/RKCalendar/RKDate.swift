@@ -19,7 +19,13 @@ struct RKDate {
     var isBetweenStartAndEnd: Bool = false
     var hasEvent: Bool = false
     
-    init(date: Date, rkManager: RKManager, isDisabled: Bool, isToday: Bool, isSelected: Bool, isBetweenStartAndEnd: Bool, hasEvent: Bool = false) {
+    init(date: Date,
+         rkManager: RKManager,
+         isDisabled: Bool,
+         isToday: Bool,
+         isSelected: Bool,
+         isBetweenStartAndEnd: Bool,
+         hasEvent: Bool = false) {
         self.date = date
         self.rkManager = rkManager
         self.isDisabled = isDisabled

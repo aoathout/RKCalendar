@@ -23,6 +23,7 @@ struct ContentView : View {
         calendar: Calendar.current,
         minimumDate: Date(),
         maximumDate: Date().addingTimeInterval(YEAR),
+        eventDates: [Date().addingTimeInterval(DAY)],
         mode: .single)
     
     var rkManager2 = RKManager(
