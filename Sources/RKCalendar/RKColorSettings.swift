@@ -32,4 +32,5 @@ public class RKColorSettings : ObservableObject {
     // event fill colors
     @Published public var eventFillColor: Color = Color.gray.opacity(0.4)
 
+    public init() {}
 }
