@@ -8,11 +8,15 @@
 
 import SwiftUI
 
-struct RKWeekdayHeader : View {
+public struct RKWeekdayHeader : View {
     
     var rkManager: RKManager
      
-    var body: some View {
+    public init(rkManager: RKManager) {
+        self.rkManager = rkManager
+    }
+    
+    public var body: some View {
         HStack(alignment: .center) {
             ForEach(self.getWeekdayHeaders(calendar: self.rkManager.calendar), id: \.self) { weekday in
                 Text(weekday)
