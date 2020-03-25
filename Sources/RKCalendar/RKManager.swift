@@ -15,10 +15,10 @@ public class RKManager : ObservableObject {
     @Published public var maximumDate: Date = Date()
     @Published public var disabledDates: [Date] = [Date]()
     @Published public var selectedDates: [Date] = [Date]() {
-           willSet { objectWillChange.send() }
+           didSet { objectWillChange.send() }
        }
     @Published public var selectedDate: Date! = nil {
-        willSet { objectWillChange.send() }
+        didSet { objectWillChange.send() }
     }
     @Published public var startDate: Date! = nil
     @Published public var endDate: Date! = nil
