@@ -15,13 +15,22 @@ struct RKCell: View {
     var cellWidth: CGFloat
     
     var body: some View {
-        Text(rkDate.getText())
-            .fontWeight(rkDate.getFontWeight())
-            .foregroundColor(rkDate.getTextColor())
-            .frame(width: cellWidth, height: cellWidth)
-            .font(.system(size: 20))
-            .background(rkDate.getBackgroundColor())
-            .cornerRadius(cellWidth/2)
+        VStack {
+            Text(rkDate.getText())
+                .fontWeight(rkDate.getFontWeight())
+                .foregroundColor(rkDate.getTextColor())
+                .frame(width: cellWidth, height: cellWidth)
+                .font(.system(size: 20))
+                .background(rkDate.getBackgroundColor())
+                .cornerRadius(cellWidth/2)
+            
+            if rkDate.hasEvent {
+                Circle()
+                    .fill(Color.gray.opacity(0.5))
+                    .frame(width: 8, height: 8)
+                    .padding(.top, -10)
+            }
+        }
     }
 }
 

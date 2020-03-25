@@ -15,28 +15,26 @@ public class RKManager : ObservableObject {
     @Published public var maximumDate: Date = Date()
     @Published public var disabledDates: [Date] = [Date]()
     @Published public var selectedDates: [Date] = [Date]()
-//        {
-//           didSet { objectWillChange.send() }
-//       }
     @Published public var selectedDate: Date! = nil
-//        {
-//        didSet {
-//            print("SelectedDate: \(String(describing: selectedDate))")
-//            objectWillChange.send()
-//        }
-//    }
     @Published public var startDate: Date! = nil
     @Published public var endDate: Date! = nil
+    @Published public var eventDates: [Date] = [Date]()
     
     @Published public var mode: Int = 0
     
     public var colors = RKColorSettings()
   
-    public init(calendar: Calendar, minimumDate: Date, maximumDate: Date, selectedDates: [Date] = [Date](), mode: Int) {
+    public init(calendar: Calendar,
+                minimumDate: Date,
+                maximumDate: Date,
+                selectedDates: [Date] = [Date](),
+                eventDates: [Date] = [Date](),
+                mode: Int) {
         self.calendar = calendar
         self.minimumDate = minimumDate
         self.maximumDate = maximumDate
         self.selectedDates = selectedDates
+        self.eventDates = eventDates
         self.mode = mode
     }
     
@@ -62,4 +60,14 @@ public class RKManager : ObservableObject {
         return self.disabledDates.firstIndex(where: { calendar.isDate($0, inSameDayAs: date) })
     }
     
+    public func eventDatesContains(date: Date) -> Bool {
+        if let _ = self.eventDates.first(where: { calendar.isDate($0, inSameDayAs: date) }) {
+            return true
+        }
+        return false
+    }
+    
+    public func eventDatesFindIndex(date: Date) -> Int? {
+        return self.eventDates.firstIndex(where: { calendar.isDate($0, inSameDayAs: date) })
+    }
 }

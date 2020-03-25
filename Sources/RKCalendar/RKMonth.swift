@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct RKMonth: View {
+public struct RKMonth: View {
 
     @Binding var isPresented: Bool
     
@@ -25,8 +25,13 @@ struct RKMonth: View {
     
     @State var showTime = false
     
+    public init(isPresented: Binding<Bool>, rkManager: RKManager, monthOffset: Int) {
+        self._isPresented = isPresented
+        self.rkManager = rkManager
+        self.monthOffset = monthOffset
+    }
     
-    var body: some View {
+    public var body: some View {
         VStack(alignment: HorizontalAlignment.center, spacing: 10){
             Text(getMonthHeader()).foregroundColor(self.rkManager.colors.monthHeaderColor)
             VStack(alignment: .leading, spacing: 5) {

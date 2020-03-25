@@ -116,7 +116,8 @@
 				0112FD6F22DB91DB00BB8F94 /* RKManager.swift */,
 				C72D24C52317A99D00A37CC1 /* RKColorSettings.swift */,
 			);
-			path = Manager;
+			name = Manager;
+			path = ../Sources/RKCalendar;
 			sourceTree = "<group>";
 		};
 		019D281E22DBCCAE0001C990 /* Images */ = {

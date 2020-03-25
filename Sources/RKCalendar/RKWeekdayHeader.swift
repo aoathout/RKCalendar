@@ -20,7 +20,9 @@ struct RKWeekdayHeader : View {
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .foregroundColor(self.rkManager.colors.weekdayHeaderColor)
             }
-        }.background(rkManager.colors.weekdayHeaderBackColor)
+        }
+        .background(rkManager.colors.weekdayHeaderBackColor)
+        .padding()
     }
     
     func getWeekdayHeaders(calendar: Calendar) -> [String] {
