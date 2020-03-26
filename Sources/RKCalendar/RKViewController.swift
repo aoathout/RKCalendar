@@ -11,18 +11,22 @@ import SwiftUI
 public struct RKViewController: View {
     
     var isPresented: Binding<Bool>
+    var showHeader: Bool = true
     
     @ObservedObject var rkManager: RKManager
     
-    public init (isPresented: Binding<Bool>, rkManager: RKManager) {
+    public init (isPresented: Binding<Bool>, showHeader: Bool = true, rkManager: RKManager) {
         self.isPresented = isPresented
+        self.showHeader = showHeader
         self.rkManager = rkManager
     }
     
     public var body: some View {
         Group {
-            RKWeekdayHeader(rkManager: self.rkManager)
-            Divider()
+            if showHeader {
+                RKWeekdayHeader(rkManager: self.rkManager)
+                Divider()
+            }
             List {
                 ForEach(0..<numberOfMonths()) { index in
                     RKMonth(isPresented: self.isPresented, rkManager: self.rkManager, monthOffset: index)
