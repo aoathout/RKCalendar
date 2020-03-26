@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct RKMonth: View {
+public struct RKMonth: View {
 
     @Binding var isPresented: Bool
     
@@ -25,8 +25,13 @@ struct RKMonth: View {
     
     @State var showTime = false
     
+    public init(isPresented: Binding<Bool>, rkManager: RKManager, monthOffset: Int) {
+        self._isPresented = isPresented
+        self.rkManager = rkManager
+        self.monthOffset = monthOffset
+    }
     
-    var body: some View {
+    public var body: some View {
         VStack(alignment: HorizontalAlignment.center, spacing: 10){
             Text(getMonthHeader()).foregroundColor(self.rkManager.colors.monthHeaderColor)
             VStack(alignment: .leading, spacing: 5) {
@@ -36,13 +41,15 @@ struct RKMonth: View {
                             HStack() {
                                 Spacer()
                                 if self.isThisMonth(date: column) {
-                                    RKCell(rkDate: RKDate(
+                                    RKCell(rkDate:
+                                        RKDate(
                                         date: column,
                                         rkManager: self.rkManager,
                                         isDisabled: !self.isEnabled(date: column),
                                         isToday: self.isToday(date: column),
                                         isSelected: self.isSpecialDate(date: column),
-                                        isBetweenStartAndEnd: self.isBetweenStartAndEnd(date: column)),
+                                        isBetweenStartAndEnd: self.isBetweenStartAndEnd(date: column),
+                                        hasEvent: self.isEventDate(date: column)),
                                         cellWidth: self.cellWidth)
                                         .onTapGesture { self.dateTapped(date: column) }
                                 } else {
@@ -64,7 +71,7 @@ struct RKMonth: View {
     func dateTapped(date: Date) {
         if self.isEnabled(date: date) {
             switch self.rkManager.mode {
-            case 0:
+            case .single:
                 if self.rkManager.selectedDate != nil &&
                     self.rkManager.calendar.isDate(self.rkManager.selectedDate, inSameDayAs: date) {
                     self.rkManager.selectedDate = nil
@@ -72,19 +79,19 @@ struct RKMonth: View {
                     self.rkManager.selectedDate = date
                 }
                 self.isPresented = false
-            case 1:
+            case .range:
                 self.rkManager.startDate = date
                 self.rkManager.endDate = nil
-                self.rkManager.mode = 2
-            case 2:
+                self.rkManager.mode = .rangeEndDateAfter
+            case .rangeEndDateAfter:
                 self.rkManager.endDate = date
                 if self.isStartDateAfterEndDate() {
                     self.rkManager.endDate = nil
                     self.rkManager.startDate = nil
                 }
-                self.rkManager.mode = 1
+                self.rkManager.mode = .single
                 self.isPresented = false
-            case 3:
+            case .multiple:
                 if self.rkManager.selectedDatesContains(date: date) {
                     if let ndx = self.rkManager.selectedDatesFindIndex(date: date) {
                         rkManager.selectedDates.remove(at: ndx)
@@ -92,9 +99,9 @@ struct RKMonth: View {
                 } else {
                     self.rkManager.selectedDates.append(date)
                 }
-            default:
-                self.rkManager.selectedDate = date
-                self.isPresented = false
+//            default:
+//                self.rkManager.selectedDate = date
+//                self.isPresented = false
             }
         }
     }
@@ -237,12 +244,16 @@ struct RKMonth: View {
         }
         return true
     }
+    
+    func isEventDate(date: Date) -> Bool {
+        return self.rkManager.eventDatesContains(date: date)
+    }
 }
 
 #if DEBUG
 struct RKMonth_Previews : PreviewProvider {
     static var previews: some View {
-        RKMonth(isPresented: .constant(false),rkManager: RKManager(calendar: Calendar.current, minimumDate: Date(), maximumDate: Date().addingTimeInterval(60*60*24*365), mode: 0), monthOffset: 0)
+        RKMonth(isPresented: .constant(false),rkManager: RKManager(calendar: Calendar.current, minimumDate: Date(), maximumDate: Date().addingTimeInterval(60*60*24*365), mode: .single), monthOffset: 0)
     }
 }
 #endif
