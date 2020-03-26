@@ -36,12 +36,12 @@ public struct RKMonth: View {
             Text(getMonthHeader()).foregroundColor(self.rkManager.colors.monthHeaderColor)
             VStack(alignment: .leading, spacing: 5) {
                 ForEach(monthsArray, id:  \.self) { row in
-                    HStack() {
+                    LazyView(HStack() {
                         ForEach(row, id:  \.self) { column in
-                            HStack() {
+                            LazyView(HStack() {
                                 Spacer()
                                 if self.isThisMonth(date: column) {
-                                    RKCell(rkDate:
+                                    LazyView(RKCell(rkDate:
                                         RKDate(
                                         date: column,
                                         rkManager: self.rkManager,
@@ -50,15 +50,15 @@ public struct RKMonth: View {
                                         isSelected: self.isSpecialDate(date: column),
                                         isBetweenStartAndEnd: self.isBetweenStartAndEnd(date: column),
                                         hasEvent: self.isEventDate(date: column)),
-                                        cellWidth: self.cellWidth)
+                                        cellWidth: self.cellWidth))
                                         .onTapGesture { self.dateTapped(date: column) }
                                 } else {
                                     Text("").frame(width: self.cellWidth, height: self.cellWidth)
                                 }
                                 Spacer()
-                            }
+                            })
                         }
-                    }
+                    })
                 }
             }.frame(minWidth: 0, maxWidth: .infinity)
         }.background(rkManager.colors.monthBackColor)
