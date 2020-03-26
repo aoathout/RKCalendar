@@ -17,14 +17,22 @@ struct RKDate {
     var isToday: Bool = false
     var isSelected: Bool = false
     var isBetweenStartAndEnd: Bool = false
+    var hasEvent: Bool = false
     
-    init(date: Date, rkManager: RKManager, isDisabled: Bool, isToday: Bool, isSelected: Bool, isBetweenStartAndEnd: Bool) {
+    init(date: Date,
+         rkManager: RKManager,
+         isDisabled: Bool,
+         isToday: Bool,
+         isSelected: Bool,
+         isBetweenStartAndEnd: Bool,
+         hasEvent: Bool = false) {
         self.date = date
         self.rkManager = rkManager
         self.isDisabled = isDisabled
         self.isToday = isToday
         self.isSelected = isSelected
         self.isBetweenStartAndEnd = isBetweenStartAndEnd
+        self.hasEvent = hasEvent
     }
     
     func getText() -> String {
@@ -63,6 +71,16 @@ struct RKDate {
         return backgroundColor
     }
     
+    func getEventFillColor() -> Color {
+        var fillColor = rkManager.colors.eventFillColor
+        
+        if isDisabled {
+            fillColor = Color.clear
+        }
+        
+        return fillColor
+    }
+    
     func getFontWeight() -> Font.Weight {
         var fontWeight = Font.Weight.medium
         if isDisabled {
@@ -76,7 +94,7 @@ struct RKDate {
         }
         return fontWeight
     }
-    
+        
     // MARK: - Date Formats
     
     func formatDate(date: Date, calendar: Calendar) -> String {
