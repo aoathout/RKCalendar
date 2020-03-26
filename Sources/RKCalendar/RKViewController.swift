@@ -29,7 +29,7 @@ public struct RKViewController: View {
             }
             List {
                 ForEach(0..<numberOfMonths(), id: \.self) { index in
-                    RKMonth(isPresented: self.isPresented, rkManager: self.rkManager, monthOffset: index)
+                    LazyView(RKMonth(isPresented: self.isPresented, rkManager: self.rkManager, monthOffset: index))
                 }
                 Divider()
             }
